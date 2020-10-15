@@ -1,8 +1,13 @@
 // Copyright Epic Games, Inc. All Rights Reserved.
 
 #include "Infinite_ShooterProjectile.h"
+
+#include "DrawDebugHelpers.h"
 #include "GameFramework/ProjectileMovementComponent.h"
+
 #include "Components/SphereComponent.h"
+
+#include "Engine/StaticMesh.h"
 
 AInfinite_ShooterProjectile::AInfinite_ShooterProjectile() 
 {
@@ -15,7 +20,9 @@ AInfinite_ShooterProjectile::AInfinite_ShooterProjectile()
 	// Players can't walk on it
 	CollisionComp->SetWalkableSlopeOverride(FWalkableSlopeOverride(WalkableSlope_Unwalkable, 0.f));
 	CollisionComp->CanCharacterStepUpOn = ECB_No;
-
+	CollisionComp->SetWorldScale3D(FVector(5.f,5.f,5.f));
+	
+	//PStaticMesh = CreateDefaultSubobject<UStaticMesh>(TEXT("PStaticMesh"));
 	// Set as root component
 	RootComponent = CollisionComp;
 
@@ -34,10 +41,13 @@ AInfinite_ShooterProjectile::AInfinite_ShooterProjectile()
 void AInfinite_ShooterProjectile::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit)
 {
 	// Only add impulse and destroy projectile if we hit a physics
-	if ((OtherActor != NULL) && (OtherActor != this) && (OtherComp != NULL) && OtherComp->IsSimulatingPhysics())
+	if ((OtherActor != nullptr) && (OtherActor != this) && (OtherComp != nullptr) && OtherComp->IsSimulatingPhysics())
 	{
 		OtherComp->AddImpulseAtLocation(GetVelocity() * 100.0f, GetActorLocation());
 
-		Destroy();
+		DrawDebugString(GetWorld(), OtherActor->GetActorLocation(), FString::Printf(TEXT("Hit object name: %s"), *OtherActor->GetName()), 0, FColor::Orange, 2.f, false, 3.f);
+
+		OtherActor->Destroy();	//destroy hit object
 	}
+	Destroy();	//destroy the gun "bullet"
 }

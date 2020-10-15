@@ -15,6 +15,10 @@ class AInfinite_ShooterProjectile : public AActor
 	UPROPERTY(VisibleDefaultsOnly, Category=Projectile)
 	class USphereComponent* CollisionComp;
 
+	///** Sphere collision component */
+	//UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Projectile)
+	//class UStaticMesh* PStaticMesh;
+
 	/** Projectile movement component */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Movement, meta = (AllowPrivateAccess = "true"))
 	class UProjectileMovementComponent* ProjectileMovement;
