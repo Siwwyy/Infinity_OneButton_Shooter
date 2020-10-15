@@ -3,7 +3,6 @@
 
 #include "CoreMinimal.h"
 
-#include "GameFramework/Actor.h"
 
 #include "Base_Classes/Target_Base_CPP.h"
 #include "Target_CPP.generated.h"
@@ -20,12 +19,6 @@ public:
 	ATarget_CPP();
 
 #pragma endregion
-#pragma region Class_Variables_Protected
-protected:
-
-	
-
-#pragma endregion
 #pragma region Class_Components_Protected
 protected:
 
@@ -36,6 +29,10 @@ protected:
 public:
 
 	virtual void BeginPlay() override;
+
+	
+	UFUNCTION(BlueprintCallable, Category = "Class_Functions_Public")
+		void MoveForward(float value);
 
 #pragma endregion
 #pragma region Class_Functions_Protected

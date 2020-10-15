@@ -22,9 +22,14 @@ public:
 #pragma endregion
 #pragma region Class_Variables_Protected
 protected:
-
+	
+	struct FTimerHandle SpawnTimerHandle;
+	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Class_Variables_Protected", meta = (AllowProtectedAccess = "true"))
 		TSubclassOf<class ATarget_CPP> Target;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Class_Variables_Protected", meta = (AllowProtectedAccess = "true"))
+	class AInfinite_ShooterCharacter * PPlayer;
 
 #pragma endregion
 #pragma region Class_Components_Protected
@@ -37,9 +42,9 @@ protected:
 public:
 
 	virtual void BeginPlay() override;
-
+	
 	UFUNCTION(BlueprintCallable, Category = "Class_Functions_Public")
-		void Spawn() const;
+		void Spawn();
 
 #pragma endregion
 };

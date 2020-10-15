@@ -1,6 +1,8 @@
 
 #include "Base_Classes/Target_Base_CPP.h"
 
+#include "Infinite_Shooter/Infinite_ShooterCharacter.h"
+
 #include "Materials/MaterialInstanceDynamic.h"
 
 
@@ -39,4 +41,9 @@ float ATarget_Base_CPP::TakeDamage(float DamageAmount, FDamageEvent const& Damag
 	}
 
 	return ActualDamage;
+}
+
+void ATarget_Base_CPP::Set_Player(AInfinite_ShooterCharacter* Player)
+{
+	PPlayer = Player;
 }

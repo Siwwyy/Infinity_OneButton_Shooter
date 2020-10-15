@@ -8,6 +8,7 @@
 
 #include "Target_Base_CPP.generated.h"
 
+
 UCLASS()
 class INFINITE_SHOOTER_API ATarget_Base_CPP : public AActor_Base_Class_CPP
 {
@@ -24,6 +25,13 @@ protected:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Class_Variables_Protected", meta = (AllowProtectedAccess = "true"))
 		float fHealth;
+
+#pragma endregion
+#pragma region Class_Pointers_Protected
+protected:
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Class_Pointers_Protected", meta = (AllowProtectedAccess = "true"))
+		class AInfinite_ShooterCharacter* PPlayer;
 
 #pragma endregion
 #pragma region Class_Components_Protected
@@ -46,6 +54,13 @@ public:
 	virtual float TakeDamage(float DamageAmount, struct FDamageEvent const& DamageEvent, class AController* EventInstigator, AActor* DamageCauser) override;
 
 #pragma endregion
+#pragma region Class_Setters_Public
+public:
+
+	UFUNCTION(BlueprintCallable, Category = "Class_Getters_Public")
+		void Set_Player(class AInfinite_ShooterCharacter* Player);
+
+#pragma endregion
 #pragma region Class_Getters_Public 
 public:
 
@@ -53,6 +68,12 @@ public:
 		FORCEINLINE float Get_fHealth() const
 	{
 		return fHealth;
+	}
+
+	UFUNCTION(BlueprintCallable, Category = "Class_Getters_Public")
+		FORCEINLINE class AInfinite_ShooterCharacter* Get_PPlayer() const
+	{
+		return PPlayer;
 	}
 
 	UFUNCTION(BlueprintCallable, Category = "Class_Getters_Public")
