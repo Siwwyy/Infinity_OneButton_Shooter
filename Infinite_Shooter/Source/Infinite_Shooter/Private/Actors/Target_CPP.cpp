@@ -20,7 +20,7 @@ ATarget_CPP::ATarget_CPP() :
 	//	PStaticMeshComponent->SetMaterial(0, MaterialAsset.Object);
 	//	PStaticMeshComponent->SetWorldScale3D(FVector(0.3f));
 	//}
-	PStaticMeshComponent->SetMobility(EComponentMobility::Movable);
+	//PStaticMeshComponent->SetMobility(EComponentMobility::Movable);
 }
 
 
@@ -47,5 +47,5 @@ void ATarget_CPP::Tick(float DeltaSeconds)
 
 	//MoveForward(blend);
 	const FVector Cos = GetActorLocation();
-	SetActorLocation(FVector(Cos.X,Cos.Y + 0.3f,Cos.Z));
+	SetActorLocation(FVector(Cos.X - 0.5f,Cos.Y,Cos.Z));
 }
