@@ -3,11 +3,11 @@
 #include "Infinite_ShooterProjectile.h"
 
 #include "DrawDebugHelpers.h"
+#include "Base_Classes/Target_Base_CPP.h"
 #include "GameFramework/ProjectileMovementComponent.h"
 
 #include "Components/SphereComponent.h"
 
-#include "Engine/StaticMesh.h"
 
 AInfinite_ShooterProjectile::AInfinite_ShooterProjectile() 
 {
@@ -41,13 +41,19 @@ AInfinite_ShooterProjectile::AInfinite_ShooterProjectile()
 void AInfinite_ShooterProjectile::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit)
 {
 	// Only add impulse and destroy projectile if we hit a physics
-	if ((OtherActor != nullptr) && (OtherActor != this) && (OtherComp != nullptr) && OtherComp->IsSimulatingPhysics())
+	if ((OtherActor != nullptr) && (OtherActor != this) && (OtherComp != nullptr))
 	{
-		OtherComp->AddImpulseAtLocation(GetVelocity() * 100.0f, GetActorLocation());
+		constexpr float fDamage = 50.f;
 
-		DrawDebugString(GetWorld(), OtherActor->GetActorLocation(), FString::Printf(TEXT("Hit object name: %s"), *OtherActor->GetName()), 0, FColor::Orange, 2.f, false, 3.f);
 
-		OtherActor->Destroy();	//destroy hit object
+		//OtherActor->Destroy();	//destroy hit object
+		if(ATarget_Base_CPP * Target = Cast<ATarget_Base_CPP>(OtherActor))
+		{
+			DrawDebugString(GetWorld(), OtherActor->GetActorLocation(), FString::Printf(TEXT("Hit object name: %s"), *OtherActor->GetName()), 0, FColor::Orange, 2.f, false, 3.f);
+			
+			Target->TakeDamage(fDamage, FPointDamageEvent(), GetInstigatorController(), this);
+		}
+		
 	}
 	Destroy();	//destroy the gun "bullet"
 }

@@ -11,6 +11,7 @@
 #include "Kismet/GameplayStatics.h"
 #include "MotionControllerComponent.h"
 #include "XRMotionControllerBase.h" // for FXRMotionControllerBase::RightHandSourceId
+#include "Sound/SoundAttenuation.h"
 
 DEFINE_LOG_CATEGORY_STATIC(LogFPChar, Warning, All);
 
@@ -171,6 +172,8 @@ void AInfinite_ShooterCharacter::OnFire()
 	// try and play the sound if specified
 	if (FireSound != nullptr)
 	{
+		FSoundAttenuationSettings Sound_Settings;
+		//remember about sound settings
 		UGameplayStatics::PlaySoundAtLocation(this, FireSound, GetActorLocation());
 	}
 

@@ -1,4 +1,3 @@
-// Fill out your copyright notice in the Description page of Project Settings.
 
 #pragma once
 
@@ -11,34 +10,10 @@ class INFINITE_SHOOTER_API AActor_Base_Class_CPP : public AActor
 {
 	GENERATED_BODY()
 
-#pragma region Class_Constructors_Public
-public:
+#pragma region Class_Constructors_protected
+protected:
 
 	AActor_Base_Class_CPP();
-
-#pragma endregion
-#pragma region Class_Constructors_Protected
-protected:
-
-
-
-#pragma endregion
-#pragma region Class_Variables_Public
-public:
-
-
-
-#pragma endregion 
-#pragma region Class_Variables_Protected
-protected:
-
-
-
-#pragma endregion
-#pragma region Class_Components_Public
-public:
-
-
 
 #pragma endregion
 #pragma region Class_Components_Protected
@@ -54,36 +29,6 @@ public:
 	virtual void BeginPlay() override;
 
 #pragma endregion
-#pragma region Class_Functions_Protected
-protected:
-
-
-
-#pragma endregion
-#pragma region Class_Delegates_Public
-public:
-
-
-
-#pragma endregion
-#pragma region Class_Delegates_Protected
-protected:
-
-
-
-#pragma endregion
-#pragma region Class_Setters_Public
-public:
-
-
-
-#pragma endregion
-#pragma region Class_Setters_Protected
-protected:
-
-
-
-#pragma endregion 
 #pragma region Class_Getters_Public 
 public:
 
@@ -92,12 +37,6 @@ public:
 	{
 		return PStaticMeshComponent;
 	}
-
-#pragma endregion
-#pragma region Class_Getters_Protected
-protected:
-
-
 
 #pragma endregion
 };
