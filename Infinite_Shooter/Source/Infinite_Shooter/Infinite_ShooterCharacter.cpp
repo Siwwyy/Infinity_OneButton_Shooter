@@ -125,9 +125,9 @@ void AInfinite_ShooterCharacter::SetupPlayerInputComponent(class UInputComponent
 
 	PlayerInputComponent->BindAction("ResetVR", IE_Pressed, this, &AInfinite_ShooterCharacter::OnResetVR);
 
-	// Bind movement events
-	PlayerInputComponent->BindAxis("MoveForward", this, &AInfinite_ShooterCharacter::MoveForward);
-	PlayerInputComponent->BindAxis("MoveRight", this, &AInfinite_ShooterCharacter::MoveRight);
+	//// Bind movement events
+	//PlayerInputComponent->BindAxis("MoveForward", this, &AInfinite_ShooterCharacter::MoveForward);
+	//PlayerInputComponent->BindAxis("MoveRight", this, &AInfinite_ShooterCharacter::MoveRight);
 
 	// We have 2 versions of the rotation bindings to handle different kinds of devices differently
 	// "turn" handles devices that provide an absolute delta, such as a mouse.
