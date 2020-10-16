@@ -35,7 +35,10 @@ void ASpawner_CPP::Spawn()
 		//
 		//const FTransform SpawnLocAndRotation(SpawnRotation, SpawnLocation);
 
-		const FVector Forward_Vector;
+		//FVector Forward_Vector(300.f,0.f,0.f); //= PStaticMeshComponent->GetForwardVector();
+		FVector Forward_Vector = PStaticMeshComponent->GetForwardVector();
+		const FRotator Rotator = PStaticMeshComponent->GetComponentRotation();
+		//Forward_Vector.X += 300.f;
 		const int32 Random_X_Position{  };
 		const int32 Random_Y_Position{  };
 		//const int32 Random_Z_Position{ Get_RandomInt(GetActorLocation().Z, GetActorLocation().Z + 300.f) };

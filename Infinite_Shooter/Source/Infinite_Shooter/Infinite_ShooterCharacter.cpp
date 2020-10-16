@@ -21,7 +21,7 @@ DEFINE_LOG_CATEGORY_STATIC(LogFPChar, Warning, All);
 // AInfinite_ShooterCharacter
 
 AInfinite_ShooterCharacter::AInfinite_ShooterCharacter() :
-	TimeBetweenShoots(0.3f)
+	TimeBetweenShoots(0.2f)
 {
 	// Set size for collision capsule
 	GetCapsuleComponent()->InitCapsuleSize(55.f, 96.0f);

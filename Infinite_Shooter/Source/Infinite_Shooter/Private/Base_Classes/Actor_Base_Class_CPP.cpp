@@ -7,7 +7,8 @@
 
 
 AActor_Base_Class_CPP::AActor_Base_Class_CPP() :
-	PStaticMeshComponent(nullptr)
+	PStaticMeshComponent(nullptr),
+	PArrowComponent(nullptr)
 {
 	PrimaryActorTick.bCanEverTick = false;
 
