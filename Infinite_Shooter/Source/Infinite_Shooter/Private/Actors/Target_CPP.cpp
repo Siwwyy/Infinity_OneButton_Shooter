@@ -6,10 +6,10 @@
 
 
 ATarget_CPP::ATarget_CPP() :
-	ATarget_Base_CPP()
+	ATarget_Base_CPP(),
+	Velocity(100.f)
 {
 	PrimaryActorTick.bCanEverTick = true;
-
 
 	//static ConstructorHelpers::FObjectFinder<UStaticMesh> MeshAsset(TEXT("StaticMesh'/Engine/EngineMeshes/Sphere.Sphere'"));
 
@@ -21,23 +21,20 @@ ATarget_CPP::ATarget_CPP() :
 	//	PStaticMeshComponent->SetWorldScale3D(FVector(0.3f));
 	//}
 	//PStaticMeshComponent->SetMobility(EComponentMobility::Movable);
-	
+
 }
 
 
 void ATarget_CPP::BeginPlay()
 {
 	Super::BeginPlay();
-
-
-
 }
 
 void ATarget_CPP::MoveForward(float Value)
 {
 	FVector Location = GetActorLocation();
 
-	Location += GetActorForwardVector() * 100.f * Value;
+	Location += GetActorForwardVector() * Velocity * Value;
 
 	SetActorLocation(Location);
 }
@@ -49,9 +46,5 @@ void ATarget_CPP::Tick(float DeltaSeconds)
 	float blend = 0.5f + static_cast<float>(FMath::Cos(GetWorld()->TimeSeconds) / 2);
 	PDynamicMaterial->SetScalarParameterValue(TEXT("Blend"), blend);
 
-	//MoveForward(blend);
-	//const FVector Cos = GetActorLocation();
-	//SetActorLocation(FVector(Cos.X - 0.5f,Cos.Y,Cos.Z));
-	
-	//MoveForward(DeltaSeconds);
+	MoveForward(DeltaSeconds);	//move forward this
 }

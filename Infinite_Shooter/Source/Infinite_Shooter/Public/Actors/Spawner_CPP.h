@@ -47,6 +47,13 @@ public:
 		void Spawn();
 
 #pragma endregion
+#pragma region Class_Functions_Protected
+protected:
+
+	void Spawn_Around(float Spawning_Radius, FVector & Spawn_Location, 	FRotator & Spawn_Rotator);
+
+#pragma endregion
+#pragma endregion
 #pragma region Class_Getters_Protected
 protected:
 
