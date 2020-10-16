@@ -7,9 +7,10 @@
 #include "GameFramework/ProjectileMovementComponent.h"
 
 #include "Components/SphereComponent.h"
+#include "Kismet/GameplayStatics.h"
 
 
-AInfinite_ShooterProjectile::AInfinite_ShooterProjectile() 
+AInfinite_ShooterProjectile::AInfinite_ShooterProjectile()
 {
 	// Use a sphere as a simple collision representation
 	CollisionComp = CreateDefaultSubobject<USphereComponent>(TEXT("SphereComp"));
@@ -20,9 +21,8 @@ AInfinite_ShooterProjectile::AInfinite_ShooterProjectile()
 	// Players can't walk on it
 	CollisionComp->SetWalkableSlopeOverride(FWalkableSlopeOverride(WalkableSlope_Unwalkable, 0.f));
 	CollisionComp->CanCharacterStepUpOn = ECB_No;
-	CollisionComp->SetWorldScale3D(FVector(5.f,5.f,5.f));
-	
-	//PStaticMesh = CreateDefaultSubobject<UStaticMesh>(TEXT("PStaticMesh"));
+	CollisionComp->SetWorldScale3D(FVector(5.f, 5.f, 5.f));
+
 	// Set as root component
 	RootComponent = CollisionComp;
 
@@ -38,6 +38,11 @@ AInfinite_ShooterProjectile::AInfinite_ShooterProjectile()
 	InitialLifeSpan = 3.0f;
 }
 
+void AInfinite_ShooterProjectile::BeginPlay()
+{
+	Super::BeginPlay();
+}
+
 void AInfinite_ShooterProjectile::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit)
 {
 	// Only add impulse and destroy projectile if we hit a physics
@@ -45,15 +50,14 @@ void AInfinite_ShooterProjectile::OnHit(UPrimitiveComponent* HitComp, AActor* Ot
 	{
 		constexpr float fDamage = 50.f;
 
-
-		//OtherActor->Destroy();	//destroy hit object
-		if(ATarget_Base_CPP * Target = Cast<ATarget_Base_CPP>(OtherActor))
+		if (ATarget_Base_CPP* Target = Cast<ATarget_Base_CPP>(OtherActor))
 		{
 			DrawDebugString(GetWorld(), OtherActor->GetActorLocation(), FString::Printf(TEXT("Hit object name: %s"), *OtherActor->GetName()), 0, FColor::Orange, 2.f, false, 3.f);
-			
+
 			Target->TakeDamage(fDamage, FPointDamageEvent(), GetInstigatorController(), this);
 		}
-		
+
 	}
+	UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), ImpactParticles, FTransform(Hit.ImpactNormal.Rotation(), Hit.ImpactPoint));
 	Destroy();	//destroy the gun "bullet"
 }

@@ -1,6 +1,8 @@
 // Copyright Epic Games, Inc. All Rights Reserved.
 
 #include "Infinite_ShooterCharacter.h"
+
+#include "DrawDebugHelpers.h"
 #include "Infinite_ShooterProjectile.h"
 #include "Animation/AnimInstance.h"
 #include "Camera/CameraComponent.h"
@@ -18,7 +20,8 @@ DEFINE_LOG_CATEGORY_STATIC(LogFPChar, Warning, All);
 //////////////////////////////////////////////////////////////////////////
 // AInfinite_ShooterCharacter
 
-AInfinite_ShooterCharacter::AInfinite_ShooterCharacter()
+AInfinite_ShooterCharacter::AInfinite_ShooterCharacter() :
+	TimeBetweenShoots(0.3f)
 {
 	// Set size for collision capsule
 	GetCapsuleComponent()->InitCapsuleSize(55.f, 96.0f);
@@ -119,7 +122,10 @@ void AInfinite_ShooterCharacter::SetupPlayerInputComponent(class UInputComponent
 	PlayerInputComponent->BindAction("Jump", IE_Released, this, &ACharacter::StopJumping);
 
 	// Bind fire event
-	PlayerInputComponent->BindAction("Fire", IE_Pressed, this, &AInfinite_ShooterCharacter::OnFire);
+	PlayerInputComponent->BindAction("Fire", IE_Pressed, this, &AInfinite_ShooterCharacter::StartFire);
+
+	// Bind fire event
+	PlayerInputComponent->BindAction("Fire", IE_Released, this, &AInfinite_ShooterCharacter::StopFire);
 
 	// Enable touchscreen input
 	EnableTouchscreenMovement(PlayerInputComponent);
@@ -139,34 +145,52 @@ void AInfinite_ShooterCharacter::SetupPlayerInputComponent(class UInputComponent
 	PlayerInputComponent->BindAxis("LookUpRate", this, &AInfinite_ShooterCharacter::LookUpAtRate);
 }
 
-void AInfinite_ShooterCharacter::OnFire()
+//void AInfinite_ShooterCharacter::OnFire()
+//{
+//
+//
+//
+//}
+
+void AInfinite_ShooterCharacter::StartFire()
 {
-	// try and fire a projectile
-	if (ProjectileClass != nullptr)
+	FireShot();
+
+	GetWorldTimerManager().SetTimer(TimerHandle_HandleRefire, this, &AInfinite_ShooterCharacter::FireShot, TimeBetweenShoots, true);
+}
+
+void AInfinite_ShooterCharacter::StopFire()
+{
+	GetWorldTimerManager().ClearTimer(TimerHandle_HandleRefire);
+}
+
+void AInfinite_ShooterCharacter::FireShot()
+{
+	FHitResult Hit;
+
+	const float WeaponRange = 20000.f;
+	const FVector StartTrace = FirstPersonCameraComponent->GetComponentLocation();
+	const FVector EndTrace = (FirstPersonCameraComponent->GetForwardVector() * WeaponRange) + StartTrace;
+
+	FCollisionQueryParams QueryParams = FCollisionQueryParams(SCENE_QUERY_STAT(WeaponTrace), false, this);
+
+	if (GetWorld()->LineTraceSingleByChannel(Hit, StartTrace, EndTrace, ECC_Visibility, QueryParams))
 	{
-		UWorld* const World = GetWorld();
-		if (World != nullptr)
-		{
-			if (bUsingMotionControllers)
-			{
-				const FRotator SpawnRotation = VR_MuzzleLocation->GetComponentRotation();
-				const FVector SpawnLocation = VR_MuzzleLocation->GetComponentLocation();
-				World->SpawnActor<AInfinite_ShooterProjectile>(ProjectileClass, SpawnLocation, SpawnRotation);
-			}
-			else
-			{
-				const FRotator SpawnRotation = GetControlRotation();
-				// MuzzleOffset is in camera space, so transform it to world space before offsetting from the character location to find the final muzzle position
-				const FVector SpawnLocation = ((FP_MuzzleLocation != nullptr) ? FP_MuzzleLocation->GetComponentLocation() : GetActorLocation()) + SpawnRotation.RotateVector(GunOffset);
+		const FRotator SpawnRotation = GetControlRotation();
+		// MuzzleOffset is in camera space, so transform it to world space before offsetting from the character location to find the final muzzle position
+		const FVector SpawnLocation = ((FP_MuzzleLocation != nullptr) ? FP_MuzzleLocation->GetComponentLocation() : GetActorLocation()) + SpawnRotation.RotateVector(GunOffset);
 
-				//Set Spawn Collision Handling Override
-				FActorSpawnParameters ActorSpawnParams;
-				ActorSpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AdjustIfPossibleButDontSpawnIfColliding;
+		//Set Spawn Collision Handling Override
+		FActorSpawnParameters ActorSpawnParams;
+		ActorSpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AdjustIfPossibleButDontSpawnIfColliding;
 
-				// spawn the projectile at the muzzle
-				World->SpawnActor<AInfinite_ShooterProjectile>(ProjectileClass, SpawnLocation, SpawnRotation, ActorSpawnParams);
-			}
-		}
+		// spawn the projectile at the muzzle
+		GetWorld()->SpawnActor<AInfinite_ShooterProjectile>(ProjectileClass, SpawnLocation, SpawnRotation, ActorSpawnParams);
+	}
+
+	if (MuzzleParticles)
+	{
+		UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), MuzzleParticles, FP_Gun->GetSocketTransform(FName(TEXT("Muzzle"))));
 	}
 
 	// try and play the sound if specified
@@ -202,7 +226,7 @@ void AInfinite_ShooterCharacter::BeginTouch(const ETouchIndex::Type FingerIndex,
 	}
 	if ((FingerIndex == TouchItem.FingerIndex) && (TouchItem.bMoved == false))
 	{
-		OnFire();
+		FireShot();
 	}
 	TouchItem.bIsPressed = true;
 	TouchItem.FingerIndex = FingerIndex;
@@ -298,6 +322,6 @@ bool AInfinite_ShooterCharacter::EnableTouchscreenMovement(class UInputComponent
 		//PlayerInputComponent->BindTouch(EInputEvent::IE_Repeat, this, &AInfinite_ShooterCharacter::TouchUpdate);
 		return true;
 	}
-	
+
 	return false;
 }
