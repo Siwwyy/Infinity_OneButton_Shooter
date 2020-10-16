@@ -184,8 +184,11 @@ void AInfinite_ShooterCharacter::FireShot()
 		FActorSpawnParameters ActorSpawnParams;
 		ActorSpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AdjustIfPossibleButDontSpawnIfColliding;
 
+		//DrawDebugString(GetWorld(), Hit.Actor->GetActorLocation(), FString::Printf(TEXT("Hit distance %f"), Hit.Distance), 0, FColor::Orange, 2.f, false, 3.f);	//remove comment
+		
+	
 		// spawn the projectile at the muzzle
-		GetWorld()->SpawnActor<AInfinite_ShooterProjectile>(ProjectileClass, SpawnLocation, SpawnRotation, ActorSpawnParams);
+		GetWorld()->SpawnActor<AInfinite_ShooterProjectile>(ProjectileClass, SpawnLocation, SpawnRotation, ActorSpawnParams);	//spawn bullet only when the linetrace hit some kind of surface
 	}
 
 	if (MuzzleParticles)

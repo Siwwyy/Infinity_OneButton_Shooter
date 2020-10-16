@@ -31,8 +31,8 @@ public:
 	virtual void BeginPlay() override;
 
 	
-	UFUNCTION(BlueprintCallable, Category = "Class_Functions_Public")
-		void MoveForward(float value);
+	//UFUNCTION(BlueprintCallable, Category = "Class_Functions_Public")
+		void MoveForward(float Value);
 
 #pragma endregion
 #pragma region Class_Functions_Protected

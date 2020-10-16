@@ -21,6 +21,7 @@ ATarget_CPP::ATarget_CPP() :
 	//	PStaticMeshComponent->SetWorldScale3D(FVector(0.3f));
 	//}
 	//PStaticMeshComponent->SetMobility(EComponentMobility::Movable);
+	
 }
 
 
@@ -32,10 +33,13 @@ void ATarget_CPP::BeginPlay()
 
 }
 
-void ATarget_CPP::MoveForward(float value)
+void ATarget_CPP::MoveForward(float Value)
 {
-	const FVector Target_Forward_Vector(GetActorForwardVector());
-	SetActorLocation(Target_Forward_Vector);
+	FVector Location = GetActorLocation();
+
+	Location += GetActorForwardVector() * 100.f * Value;
+
+	SetActorLocation(Location);
 }
 
 void ATarget_CPP::Tick(float DeltaSeconds)
@@ -46,6 +50,8 @@ void ATarget_CPP::Tick(float DeltaSeconds)
 	PDynamicMaterial->SetScalarParameterValue(TEXT("Blend"), blend);
 
 	//MoveForward(blend);
-	const FVector Cos = GetActorLocation();
-	SetActorLocation(FVector(Cos.X - 0.5f,Cos.Y,Cos.Z));
+	//const FVector Cos = GetActorLocation();
+	//SetActorLocation(FVector(Cos.X - 0.5f,Cos.Y,Cos.Z));
+	
+	//MoveForward(DeltaSeconds);
 }

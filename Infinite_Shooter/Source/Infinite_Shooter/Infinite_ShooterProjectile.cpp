@@ -52,7 +52,7 @@ void AInfinite_ShooterProjectile::OnHit(UPrimitiveComponent* HitComp, AActor* Ot
 
 		if (ATarget_Base_CPP* Target = Cast<ATarget_Base_CPP>(OtherActor))
 		{
-			DrawDebugString(GetWorld(), OtherActor->GetActorLocation(), FString::Printf(TEXT("Hit object name: %s"), *OtherActor->GetName()), 0, FColor::Orange, 2.f, false, 3.f);
+			//DrawDebugString(GetWorld(), OtherActor->GetActorLocation(), FString::Printf(TEXT("Hit object name: %s"), *OtherActor->GetName()), 0, FColor::Orange, 2.f, false, 3.f);
 
 			Target->TakeDamage(fDamage, FPointDamageEvent(), GetInstigatorController(), this);
 		}

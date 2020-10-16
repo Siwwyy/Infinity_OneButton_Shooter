@@ -17,6 +17,9 @@ AActor_Base_Class_CPP::AActor_Base_Class_CPP() :
 	PStaticMeshComponent->SetupAttachment(RootComponent);
 
 	PArrowComponent = CreateDefaultSubobject<UArrowComponent>(TEXT("PArrowComponent"));
+	PArrowComponent->SetVisibility(true);
+	PArrowComponent->SetHiddenInGame(false);
+	PArrowComponent->ArrowSize = 5.f;
 	PArrowComponent->SetupAttachment(PStaticMeshComponent);
 }
 
