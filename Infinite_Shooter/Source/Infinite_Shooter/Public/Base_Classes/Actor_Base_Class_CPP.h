@@ -10,7 +10,7 @@ class INFINITE_SHOOTER_API AActor_Base_Class_CPP : public AActor
 {
 	GENERATED_BODY()
 
-#pragma region Class_Constructors_protected
+#pragma region Class_Constructors_Protected
 protected:
 
 	AActor_Base_Class_CPP();
