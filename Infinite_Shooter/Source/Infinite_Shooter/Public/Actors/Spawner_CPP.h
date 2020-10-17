@@ -31,6 +31,9 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Class_Variables_Protected", meta = (AllowProtectedAccess = "true"))
 		class AInfinite_ShooterCharacter* PPlayer;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Class_Variables_Protected", meta = (AllowProtectedAccess = "true"))
+		class AGame_Manager* Game_Manager;
+
 #pragma endregion
 #pragma region Class_Components_Protected
 protected:
@@ -50,7 +53,7 @@ public:
 #pragma region Class_Functions_Protected
 protected:
 
-	void Spawn_Around(float Spawning_Radius, FVector & Spawn_Location, 	FRotator & Spawn_Rotator);
+	void Spawn_Around(float Spawning_Radius, FVector& Spawn_Location, FRotator& Spawn_Rotator) const;
 
 #pragma endregion
 #pragma endregion

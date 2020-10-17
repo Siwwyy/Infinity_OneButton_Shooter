@@ -9,6 +9,8 @@
 ATarget_Base_CPP::ATarget_Base_CPP() :
 	AActor_Base_Class_CPP(),
 	fHealth(100.f),
+	IsDestroyed(false),
+	PPlayer(nullptr),
 	PDynamicMaterial(nullptr)
 {
 	PrimaryActorTick.bCanEverTick = true;
@@ -37,7 +39,9 @@ float ATarget_Base_CPP::TakeDamage(float DamageAmount, FDamageEvent const& Damag
 
 	if (fHealth <= 0.f)
 	{
-		Destroy();
+		//Destroy();
+		IsDestroyed = true;
+		PStaticMeshComponent->SetVisibility(false);
 	}
 
 	return ActualDamage;

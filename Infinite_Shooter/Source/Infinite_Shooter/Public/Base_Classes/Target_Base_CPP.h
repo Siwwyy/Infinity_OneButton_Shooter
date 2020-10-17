@@ -26,6 +26,9 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Class_Variables_Protected", meta = (AllowProtectedAccess = "true"))
 		float fHealth;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Class_Variables_Protected", meta = (AllowProtectedAccess = "true"))
+		bool IsDestroyed;
+
 #pragma endregion
 #pragma region Class_Pointers_Protected
 protected:
@@ -68,6 +71,12 @@ public:
 		FORCEINLINE float Get_fHealth() const
 	{
 		return fHealth;
+	}
+
+	UFUNCTION(BlueprintCallable, Category = "Class_Getters_Public")
+		FORCEINLINE bool Get_IsDestroyed() const
+	{
+		return IsDestroyed;
 	}
 
 	UFUNCTION(BlueprintCallable, Category = "Class_Getters_Public")
