@@ -40,6 +40,8 @@ protected:
 #pragma region Class_Components_Protected
 protected:
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Class_Components_Protected", meta = (AllowProtectedAccess = "true"))
+		class UWidgetComponent* PWidgetComponent;
 
 #pragma endregion
 #pragma region Class_Materials_Protected
@@ -83,6 +85,12 @@ public:
 		FORCEINLINE class AInfinite_ShooterCharacter* Get_PPlayer() const
 	{
 		return PPlayer;
+	}
+
+	UFUNCTION(BlueprintCallable, Category = "Class_Getters_Public")
+		FORCEINLINE class UWidgetComponent* Get_PWidgetComponent() const
+	{
+		return PWidgetComponent;
 	}
 
 	UFUNCTION(BlueprintCallable, Category = "Class_Getters_Public")

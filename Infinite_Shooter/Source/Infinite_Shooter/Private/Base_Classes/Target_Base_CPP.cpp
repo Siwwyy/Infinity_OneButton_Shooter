@@ -1,9 +1,14 @@
 
 #include "Base_Classes/Target_Base_CPP.h"
-
 #include "Infinite_Shooter/Infinite_ShooterCharacter.h"
+#include "Infinite_Shooter/Public/Widgets/HealthBar_CPP.h"
 
 #include "Materials/MaterialInstanceDynamic.h"
+
+#include "Blueprint/UserWidget.h"
+
+#include "Components/WidgetComponent.h"
+#include "UObject/ConstructorHelpers.h"
 
 
 ATarget_Base_CPP::ATarget_Base_CPP() :
@@ -11,13 +16,25 @@ ATarget_Base_CPP::ATarget_Base_CPP() :
 	fHealth(100.f),
 	IsDestroyed(false),
 	PPlayer(nullptr),
+	PWidgetComponent(nullptr),
 	PDynamicMaterial(nullptr)
 {
+	//PStaticMeshComponent->SetSimulatePhysics(true);		//set this static mesh component to be able to receive OnHit event from projectile component
 	PrimaryActorTick.bCanEverTick = true;
 
-	//PStaticMeshComponent->SetSimulatePhysics(true);		//set this static mesh component to be able to receive OnHit event from projectile component
-}
+	PWidgetComponent = CreateDefaultSubobject<UWidgetComponent>(TEXT("PWidgetComponent"));
+	PWidgetComponent->SetWidgetSpace(EWidgetSpace::Screen);
+	PWidgetComponent->SetRelativeLocation(FVector(0.f, 0.f, 85.f));
+	PWidgetComponent->AttachToComponent(RootComponent, FAttachmentTransformRules::KeepRelativeTransform);
 
+	static ConstructorHelpers::FClassFinder<UUserWidget> Widget_Class(TEXT("WidgetBlueprint'/Game/BP_Classes/Widgets/HealthBar_BP.HealthBar_BP_C'"));
+
+	if (Widget_Class.Succeeded())
+	{
+		PWidgetComponent->SetWidgetClass(Widget_Class.Class);
+	}
+
+}
 
 void ATarget_Base_CPP::BeginPlay()
 {

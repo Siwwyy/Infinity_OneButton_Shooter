@@ -13,8 +13,8 @@ class AInfinite_ShooterCharacter : public ACharacter
 {
 	GENERATED_BODY()
 
-	/** Pawn mesh: 1st person view (arms; seen only by self) */
-	UPROPERTY(VisibleDefaultsOnly, Category = Mesh)
+		/** Pawn mesh: 1st person view (arms; seen only by self) */
+		UPROPERTY(VisibleDefaultsOnly, Category = Mesh)
 		class USkeletalMeshComponent* Mesh1P;
 
 	/** Gun mesh: 1st person view (seen only by self) */
@@ -60,6 +60,10 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera)
 		float BaseLookUpRate;
 
+	/** Seconds to wait between shoots */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
+		float TimeBetweenShoots;
+
 	/** Gun muzzle's offset from the characters location */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
 		FVector GunOffset;
@@ -75,10 +79,6 @@ public:
 	/** AnimMontage to play each time we fire */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
 		class UAnimMontage* FireAnimation;
-
-	/** Seconds to wait between shoots */
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
-		float TimeBetweenShoots;
 
 	/** Seconds to wait between shoots */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
