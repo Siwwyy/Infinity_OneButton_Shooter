@@ -2,17 +2,10 @@
 #include "Actors/Spawner_CPP.h"
 
 #include "Actors/Target_CPP.h"
-#include "Game_Logic/Game_Manager.h"
-#include "Infinite_Shooter/Infinite_ShooterCharacter.h"
-
-#include "TimerManager.h"
 
 
 ASpawner_CPP::ASpawner_CPP() :
-	SpawnTimerHandle({}),
-	Target({}),
-	PPlayer(nullptr),
-	Game_Manager(nullptr)
+	Target({})
 {
 	PrimaryActorTick.bCanEverTick = false;
 
@@ -22,10 +15,9 @@ void ASpawner_CPP::BeginPlay()
 {
 	Super::BeginPlay();
 
-	GetWorldTimerManager().SetTimer(SpawnTimerHandle, this, &ASpawner_CPP::Spawn, 1.f, true, 2.f);
 }
 
-void ASpawner_CPP::Spawn()
+ATarget_CPP* const ASpawner_CPP::Spawn()
 {
 	UWorld* World = GetWorld();
 	if (Target && World)
@@ -39,11 +31,11 @@ void ASpawner_CPP::Spawn()
 		ATarget_CPP* Target_CPP = World->SpawnActorDeferred<ATarget_CPP>(Target, SpawnLocAndRotation);
 		if (Target_CPP)
 		{
-			Game_Manager->Add_Target(Target_CPP);
-			Target_CPP->Set_Player(PPlayer);
 			Target_CPP->FinishSpawning(SpawnLocAndRotation);
+			return Target_CPP;
 		}
 	}
+	return nullptr;
 }
 
 void ASpawner_CPP::Spawn_Around(float Spawning_Radius, FVector& Spawn_Location, FRotator& Spawn_Rotatation) const

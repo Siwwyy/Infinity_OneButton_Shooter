@@ -22,13 +22,17 @@ public:
 #pragma region Class_Variables_Protected
 protected:
 
-	FTimerHandle Timer_Game_Loop;
+	FTimerHandle Timer_Game_MainLoop;
+	FTimerHandle Timer_Game_SpawnLoop;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Class_Variables_Protected, meta = (AllowProtectedAccess = "true"))
 		int32 Game_Points;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Class_Variables_Protected, meta = (AllowProtectedAccess = "true"))
 		class AInfinite_ShooterCharacter* Player;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Class_Variables_Protected, meta = (AllowProtectedAccess = "true"))
+		class ASpawner_CPP* Spawner;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Class_Variables_Protected, meta = (AllowProtectedAccess = "true"))
 		TArray<class ATarget_Base_CPP*> Array_Target;
@@ -41,7 +45,7 @@ public:
 
 	void Game_Loop();
 
-	void Add_Target(ATarget_Base_CPP* const Target);
+	void Add_Target();
 
 #pragma endregion
 #pragma region Class_Functions_Private

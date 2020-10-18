@@ -30,13 +30,6 @@ protected:
 		bool IsDestroyed;
 
 #pragma endregion
-#pragma region Class_Pointers_Protected
-protected:
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Class_Pointers_Protected", meta = (AllowProtectedAccess = "true"))
-		class AInfinite_ShooterCharacter* PPlayer;
-
-#pragma endregion
 #pragma region Class_Components_Protected
 protected:
 
@@ -62,8 +55,7 @@ public:
 #pragma region Class_Setters_Public
 public:
 
-	UFUNCTION(BlueprintCallable, Category = "Class_Getters_Public")
-		void Set_Player(class AInfinite_ShooterCharacter* Player);
+
 
 #pragma endregion
 #pragma region Class_Getters_Public 
@@ -79,12 +71,6 @@ public:
 		FORCEINLINE bool Get_IsDestroyed() const
 	{
 		return IsDestroyed;
-	}
-
-	UFUNCTION(BlueprintCallable, Category = "Class_Getters_Public")
-		FORCEINLINE class AInfinite_ShooterCharacter* Get_PPlayer() const
-	{
-		return PPlayer;
 	}
 
 	UFUNCTION(BlueprintCallable, Category = "Class_Getters_Public")

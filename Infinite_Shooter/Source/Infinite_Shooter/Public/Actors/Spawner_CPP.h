@@ -28,11 +28,11 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Class_Variables_Protected", meta = (AllowProtectedAccess = "true"))
 		TSubclassOf<class ATarget_CPP> Target;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Class_Variables_Protected", meta = (AllowProtectedAccess = "true"))
-		class AInfinite_ShooterCharacter* PPlayer;
+	//UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Class_Variables_Protected", meta = (AllowProtectedAccess = "true"))
+	//	class AInfinite_ShooterCharacter* PPlayer;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Class_Variables_Protected", meta = (AllowProtectedAccess = "true"))
-		class AGame_Manager* Game_Manager;
+	//UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Class_Variables_Protected", meta = (AllowProtectedAccess = "true"))
+	//	class AGame_Manager* Game_Manager;
 
 #pragma endregion
 #pragma region Class_Components_Protected
@@ -46,8 +46,11 @@ public:
 
 	virtual void BeginPlay() override;
 
+	//UFUNCTION(BlueprintCallable, Category = "Class_Functions_Public")
+	//	void Spawn();
+
 	UFUNCTION(BlueprintCallable, Category = "Class_Functions_Public")
-		void Spawn();
+		class ATarget_CPP* const Spawn();
 
 #pragma endregion
 #pragma region Class_Functions_Protected

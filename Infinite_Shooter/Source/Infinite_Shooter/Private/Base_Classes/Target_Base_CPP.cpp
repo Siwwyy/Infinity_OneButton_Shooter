@@ -15,7 +15,6 @@ ATarget_Base_CPP::ATarget_Base_CPP() :
 	AActor_Base_Class_CPP(),
 	fHealth(100.f),
 	IsDestroyed(false),
-	PPlayer(nullptr),
 	PWidgetComponent(nullptr),
 	PDynamicMaterial(nullptr)
 {
@@ -55,15 +54,9 @@ float ATarget_Base_CPP::TakeDamage(float DamageAmount, FDamageEvent const& Damag
 
 	if (fHealth <= 0.f)
 	{
-		//Destroy();
 		IsDestroyed = true;
 		PStaticMeshComponent->SetVisibility(false);
 	}
 
 	return ActualDamage;
-}
-
-void ATarget_Base_CPP::Set_Player(AInfinite_ShooterCharacter* Player)
-{
-	PPlayer = Player;
 }
