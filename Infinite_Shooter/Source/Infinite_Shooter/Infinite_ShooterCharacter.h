@@ -13,6 +13,7 @@ class AInfinite_ShooterCharacter : public ACharacter
 {
 	GENERATED_BODY()
 
+
 		/** Pawn mesh: 1st person view (arms; seen only by self) */
 		UPROPERTY(VisibleDefaultsOnly, Category = Mesh)
 		class USkeletalMeshComponent* Mesh1P;
@@ -44,6 +45,9 @@ class AInfinite_ShooterCharacter : public ACharacter
 	/** Motion controller (left hand) */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
 		class UMotionControllerComponent* L_MotionController;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Widgets, meta = (AllowPrivateAccess = "true"))
+		class UWidgetComponent* PWidgetComponent;
 
 public:
 	AInfinite_ShooterCharacter();
@@ -146,9 +150,13 @@ protected:
 	bool EnableTouchscreenMovement(UInputComponent* InputComponent);
 
 public:
+
+	void Set_PlayerPoints(int32 Points);
+	
 	/** Returns Mesh1P subobject **/
 	FORCEINLINE class USkeletalMeshComponent* GetMesh1P() const { return Mesh1P; }
 	/** Returns FirstPersonCameraComponent subobject **/
 	FORCEINLINE class UCameraComponent* GetFirstPersonCameraComponent() const { return FirstPersonCameraComponent; }
+	FORCEINLINE class UWidgetComponent* Get_PWidgetComponent() const { return PWidgetComponent; }
 
 };

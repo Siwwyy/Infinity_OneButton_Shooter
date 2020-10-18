@@ -13,7 +13,9 @@
 #include "Kismet/GameplayStatics.h"
 #include "MotionControllerComponent.h"
 #include "XRMotionControllerBase.h" // for FXRMotionControllerBase::RightHandSourceId
+#include "Components/WidgetComponent.h"
 #include "Sound/SoundAttenuation.h"
+#include "Widgets/PlayerPoints_CPP.h"
 
 DEFINE_LOG_CATEGORY_STATIC(LogFPChar, Warning, All);
 
@@ -84,6 +86,21 @@ AInfinite_ShooterCharacter::AInfinite_ShooterCharacter() :
 	VR_MuzzleLocation->SetRelativeLocation(FVector(0.000004, 53.999992, 10.000000));
 	VR_MuzzleLocation->SetRelativeRotation(FRotator(0.0f, 90.0f, 0.0f));		// Counteract the rotation of the VR gun model.
 
+
+	/* Player Points Widget */
+
+	PWidgetComponent = CreateDefaultSubobject<UWidgetComponent>(TEXT("PWidgetComponent"));
+	PWidgetComponent->SetWidgetSpace(EWidgetSpace::World);
+	PWidgetComponent->SetRelativeLocation(FirstPersonCameraComponent->GetRelativeLocation());
+	PWidgetComponent->SetupAttachment(FirstPersonCameraComponent);
+
+	static ConstructorHelpers::FClassFinder<UUserWidget> Widget_Class(TEXT("WidgetBlueprint'/Game/BP_Classes/Widgets/PlayerPoints_BP.PlayerPoints_BP_C'"));
+
+	if (Widget_Class.Succeeded())
+	{
+		PWidgetComponent->SetWidgetClass(Widget_Class.Class);
+	}
+
 	// Uncomment the following line to turn motion controllers on by default:
 	//bUsingMotionControllers = true;
 }
@@ -132,9 +149,7 @@ void AInfinite_ShooterCharacter::SetupPlayerInputComponent(class UInputComponent
 
 	PlayerInputComponent->BindAction("ResetVR", IE_Pressed, this, &AInfinite_ShooterCharacter::OnResetVR);
 
-	//// Bind movement events
-	//PlayerInputComponent->BindAxis("MoveForward", this, &AInfinite_ShooterCharacter::MoveForward);
-	//PlayerInputComponent->BindAxis("MoveRight", this, &AInfinite_ShooterCharacter::MoveRight);
+
 
 	// We have 2 versions of the rotation bindings to handle different kinds of devices differently
 	// "turn" handles devices that provide an absolute delta, such as a mouse.
@@ -185,8 +200,8 @@ void AInfinite_ShooterCharacter::FireShot()
 		ActorSpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AdjustIfPossibleButDontSpawnIfColliding;
 
 		//DrawDebugString(GetWorld(), Hit.Actor->GetActorLocation(), FString::Printf(TEXT("Hit distance %f"), Hit.Distance), 0, FColor::Orange, 2.f, false, 3.f);	//remove comment
-		
-	
+
+
 		// spawn the projectile at the muzzle
 		GetWorld()->SpawnActor<AInfinite_ShooterProjectile>(ProjectileClass, SpawnLocation, SpawnRotation, ActorSpawnParams);	//spawn bullet only when the linetrace hit some kind of surface
 	}
@@ -214,6 +229,7 @@ void AInfinite_ShooterCharacter::FireShot()
 			AnimInstance->Montage_Play(FireAnimation, 1.f);
 		}
 	}
+
 }
 
 void AInfinite_ShooterCharacter::OnResetVR()
@@ -327,4 +343,14 @@ bool AInfinite_ShooterCharacter::EnableTouchscreenMovement(class UInputComponent
 	}
 
 	return false;
+}
+
+void AInfinite_ShooterCharacter::Set_PlayerPoints(int32 Points)
+{
+	const auto User_Widget = Cast<UPlayerPoints_CPP>(PWidgetComponent->GetUserWidgetObject());
+
+	if (User_Widget)
+	{
+		User_Widget->Set_Text(Points);	//set points in game
+	}
 }

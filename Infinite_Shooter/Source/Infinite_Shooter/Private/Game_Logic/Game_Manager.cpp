@@ -5,7 +5,9 @@
 
 
 #include "DrawDebugHelpers.h"
+#include "Components/WidgetComponent.h"
 #include "Kismet/KismetSystemLibrary.h"
+#include "Widgets/PlayerPoints_CPP.h"
 
 
 AGame_Manager::AGame_Manager() :
@@ -21,14 +23,14 @@ void AGame_Manager::BeginPlay()
 {
 	Super::BeginPlay();
 
-	GetWorldTimerManager().SetTimer(Timer_Game_Loop, this, &AGame_Manager::Game_Loop, 0.2f, true, 0.5f);
+	GetWorldTimerManager().SetTimer(Timer_Game_Loop, this, &AGame_Manager::Game_Loop, 0.1f, true, 0.5f);
 }
 
 void AGame_Manager::Game_Loop()
 {
 	FVector Draw_Location = (Player->GetActorLocation() * (Player->GetActorForwardVector() * 2));
 	Draw_Location.Z = 200.f;
-	
+
 	Delete_DestroyedTarget();
 	if (Is_End())
 	{
@@ -38,7 +40,7 @@ void AGame_Manager::Game_Loop()
 	}
 	else
 	{
-		DrawDebugString(GetWorld(), Draw_Location, FString::Printf(TEXT("Current Points %i"), Game_Points), 0, FColor::Black, 0.2f, false, 3.f);
+		//DrawDebugString(GetWorld(), Draw_Location, FString::Printf(TEXT("Current Points %i"), Game_Points), 0, FColor::Black, 0.2f, false, 3.f);
 	}
 
 	//DrawDebugString(GetWorld(), FVector(GetActorLocation().X, GetActorLocation().Y, GetActorLocation().Z + 400.f), FString::Printf(TEXT("Current Points %i"), Game_Points), 0, FColor::Black, 0.2f, false, 3.f);
@@ -56,7 +58,7 @@ void AGame_Manager::Delete_DestroyedTarget()
 	{
 		if (Target->Get_IsDestroyed())
 		{
-			Increase_Game_Points(1);		//increase points earned by Player
+			Increase_Game_Points(1);
 			Target->Destroy();	//remove target from World
 			Array_Target.Remove(Target);	//remove Target from array
 			break;
@@ -67,6 +69,7 @@ void AGame_Manager::Delete_DestroyedTarget()
 void AGame_Manager::Increase_Game_Points(int32 Increase_Value)
 {
 	Game_Points += Increase_Value;
+	Player->Set_PlayerPoints(Game_Points);
 }
 
 bool AGame_Manager::Is_End()
@@ -76,7 +79,7 @@ bool AGame_Manager::Is_End()
 		const FVector Target_Location = Target->GetActorLocation();
 		//ATarget_Base_CPP * Temp_Actor = nullptr;
 		//Temp_Actor->SetActorLocation(FVector(Target_Location.X, Target_Location.Y, 100.f));
-		if (Target->GetDistanceTo(Player) <= (Target_Location.Z/1.5f))
+		if (Target->GetDistanceTo(Player) <= (Target_Location.Z / 1.5f))
 		{
 			return true;
 		}
