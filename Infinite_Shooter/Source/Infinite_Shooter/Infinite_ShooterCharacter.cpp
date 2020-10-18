@@ -160,13 +160,6 @@ void AInfinite_ShooterCharacter::SetupPlayerInputComponent(class UInputComponent
 	PlayerInputComponent->BindAxis("LookUpRate", this, &AInfinite_ShooterCharacter::LookUpAtRate);
 }
 
-//void AInfinite_ShooterCharacter::OnFire()
-//{
-//
-//
-//
-//}
-
 void AInfinite_ShooterCharacter::StartFire()
 {
 	FireShot();
