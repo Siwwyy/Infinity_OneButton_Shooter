@@ -14,6 +14,3 @@ class AInfinite_ShooterGameMode : public AGameModeBase
 public:
 	AInfinite_ShooterGameMode();
 };
-
-
-

@@ -20,7 +20,6 @@ protected:
 
 	UPROPERTY(BlueprintReadOnly, meta = (BindWidget))
 		class UTextBlock* Text_Block = nullptr;
-
 	
 	UPROPERTY(BlueprintReadOnly, meta = (BindWidget))
 		class UTextBlock* Game_Points = nullptr;

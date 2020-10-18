@@ -32,7 +32,6 @@ void AGame_Manager::Game_Loop()
 	FVector Draw_Location = (Player->GetActorLocation() * (Player->GetActorForwardVector() * 2));
 	Draw_Location.Z = 200.f;
 
-	//Add_Target();
 	Delete_DestroyedTarget();
 	if (Is_End())
 	{

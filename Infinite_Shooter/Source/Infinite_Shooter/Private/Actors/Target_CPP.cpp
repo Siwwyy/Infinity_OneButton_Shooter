@@ -12,19 +12,6 @@ ATarget_CPP::ATarget_CPP() :
 	Velocity(100.f)
 {
 	PrimaryActorTick.bCanEverTick = true;
-
-	//static ConstructorHelpers::FObjectFinder<UStaticMesh> MeshAsset(TEXT("StaticMesh'/Engine/EngineMeshes/Sphere.Sphere'"));
-
-
-	//static ConstructorHelpers::FObjectFinder<UMaterial> MaterialAsset(TEXT("Material'/Game/StarterContent/Materials/MyMaterial.MyMaterial'"));
-	//if (MeshAsset.Succeeded() && MaterialAsset.Succeeded())
-	//{
-	//	PStaticMeshComponent->SetStaticMesh(MeshAsset.Object);
-	//	PStaticMeshComponent->SetMaterial(0, MaterialAsset.Object);
-	//	PStaticMeshComponent->SetWorldScale3D(FVector(0.3f));
-	//}
-	//PStaticMeshComponent->SetMobility(EComponentMobility::Movable);
-
 }
 
 

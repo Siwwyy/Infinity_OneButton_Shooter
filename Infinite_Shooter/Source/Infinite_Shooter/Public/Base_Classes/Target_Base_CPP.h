@@ -52,12 +52,6 @@ public:
 	virtual float TakeDamage(float DamageAmount, struct FDamageEvent const& DamageEvent, class AController* EventInstigator, AActor* DamageCauser) override;
 
 #pragma endregion
-#pragma region Class_Setters_Public
-public:
-
-
-
-#pragma endregion
 #pragma region Class_Getters_Public 
 public:
 
