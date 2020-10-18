@@ -23,9 +23,9 @@ ATarget_Base_CPP::ATarget_Base_CPP() :
 	PrimaryActorTick.bCanEverTick = true;
 
 	PWidgetComponent = CreateDefaultSubobject<UWidgetComponent>(TEXT("PWidgetComponent"));
-	PWidgetComponent->SetWidgetSpace(EWidgetSpace::Screen);
-	PWidgetComponent->SetRelativeLocation(FVector(0.f, 0.f, 85.f));
-	PWidgetComponent->AttachToComponent(RootComponent, FAttachmentTransformRules::KeepRelativeTransform);
+	PWidgetComponent->SetWidgetSpace(EWidgetSpace::World);
+	PWidgetComponent->SetRelativeLocation(PStaticMeshComponent->GetRelativeLocation());
+	PWidgetComponent->SetupAttachment(PStaticMeshComponent);
 
 	static ConstructorHelpers::FClassFinder<UUserWidget> Widget_Class(TEXT("WidgetBlueprint'/Game/BP_Classes/Widgets/HealthBar_BP.HealthBar_BP_C'"));
 
@@ -33,7 +33,6 @@ ATarget_Base_CPP::ATarget_Base_CPP() :
 	{
 		PWidgetComponent->SetWidgetClass(Widget_Class.Class);
 	}
-
 }
 
 void ATarget_Base_CPP::BeginPlay()

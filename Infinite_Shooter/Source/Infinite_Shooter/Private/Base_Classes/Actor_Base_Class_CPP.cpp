@@ -14,7 +14,7 @@ AActor_Base_Class_CPP::AActor_Base_Class_CPP() :
 
 	PStaticMeshComponent = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("PStaticMeshComponent"));
 	PStaticMeshComponent->bCastShadowAsTwoSided = false;
-	PStaticMeshComponent->SetupAttachment(RootComponent);
+	RootComponent = PStaticMeshComponent;
 
 	PArrowComponent = CreateDefaultSubobject<UArrowComponent>(TEXT("PArrowComponent"));
 	PArrowComponent->SetVisibility(false);
