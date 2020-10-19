@@ -35,7 +35,7 @@ AInfinite_ShooterProjectile::AInfinite_ShooterProjectile()
 	ProjectileMovement->bShouldBounce = true;
 
 	// Die after 3 seconds by default
-	InitialLifeSpan = 3.0f;
+	InitialLifeSpan = 2.0f;
 }
 
 void AInfinite_ShooterProjectile::BeginPlay()
