@@ -18,6 +18,10 @@
 		{
 			"Name": "GoogleVRHMD",
 			"Enabled": true
+		},
+		{
+			"Name": "OculusAvatar",
+			"Enabled": true
 		}
 	]
 }
