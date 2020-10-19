@@ -17,7 +17,7 @@ public:
 	AInfinite_ShooterProjectile();
 
 #pragma endregion
-#pragma region Class_Variables_Protected
+#pragma region Class_Components_Protected
 protected:
 
 	/** Sphere collision component */
@@ -59,5 +59,6 @@ public:
 	{
 		return ProjectileMovement;
 	}
+	
 #pragma endregion 
 };
