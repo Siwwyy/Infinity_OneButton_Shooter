@@ -1,6 +1,6 @@
 {
 	"FileVersion": 3,
-	"EngineAssociation": "4.25",
+	"EngineAssociation": "{201A20C4-468D-DF85-E26D-1CB783726A18}",
 	"Category": "",
 	"Description": "",
 	"Modules": [
@@ -12,6 +12,12 @@
 				"Engine",
 				"UMG"
 			]
+		}
+	],
+	"Plugins": [
+		{
+			"Name": "GoogleVRHMD",
+			"Enabled": true
 		}
 	]
 }
