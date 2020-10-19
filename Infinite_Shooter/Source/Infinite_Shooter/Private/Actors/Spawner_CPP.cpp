@@ -47,7 +47,7 @@ void ASpawner_CPP::Spawn_Around(float Spawning_Radius, FVector& Spawn_Location, 
 
 
 	static float Rotation_Angle = 0.f;		//determines rotate angle of vector to spawn object
-	static float Rotation_Object = 180.f;	//determines angle of spawned object to rotate (to be facing to spawner)
+	constexpr float Rotation_Object_Angle = 180.f;	//determines angle of spawned object to rotate (to be facing to spawner)
 	const float Spawn_Angle = static_cast<float>(Get_RandomInt(0, 360));	//determines what angle add to rotation angle and rotation object
 
 	FVector New_Location = GetWorld()->GetFirstPlayerController()->GetPawn()->GetActorLocation();
@@ -60,8 +60,11 @@ void ASpawner_CPP::Spawn_Around(float Spawning_Radius, FVector& Spawn_Location, 
 	New_Location.Z = static_cast<float>(Get_RandomInt(200, 600));	//random Z position
 
 	Spawn_Location = New_Location;
-	Spawn_Rotatation.Yaw = Rotation_Object;
+	Spawn_Rotatation.Yaw = Rotation_Object_Angle + Rotation_Angle;
 
 	Rotation_Angle += Spawn_Angle;
-	Rotation_Object += Spawn_Angle;
+	if (Rotation_Angle >= 360.f)
+	{
+		Rotation_Angle -= 360.f;
+	}
 }

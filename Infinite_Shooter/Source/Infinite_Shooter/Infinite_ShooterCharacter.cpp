@@ -184,20 +184,22 @@ void AInfinite_ShooterCharacter::FireShot()
 
 	if (GetWorld()->LineTraceSingleByChannel(Hit, StartTrace, EndTrace, ECC_Visibility, QueryParams))
 	{
-		const FRotator SpawnRotation = GetControlRotation();
-		// MuzzleOffset is in camera space, so transform it to world space before offsetting from the character location to find the final muzzle position
-		const FVector SpawnLocation = ((FP_MuzzleLocation != nullptr) ? FP_MuzzleLocation->GetComponentLocation() : GetActorLocation()) + SpawnRotation.RotateVector(GunOffset);
-
-		//Set Spawn Collision Handling Override
-		FActorSpawnParameters ActorSpawnParams;
-		ActorSpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AdjustIfPossibleButDontSpawnIfColliding;
-
-		//DrawDebugString(GetWorld(), Hit.Actor->GetActorLocation(), FString::Printf(TEXT("Hit distance %f"), Hit.Distance), 0, FColor::Orange, 2.f, false, 3.f);	//remove comment
-
-
-		// spawn the projectile at the muzzle
-		GetWorld()->SpawnActor<AInfinite_ShooterProjectile>(ProjectileClass, SpawnLocation, SpawnRotation, ActorSpawnParams);	//spawn bullet only when the linetrace hit some kind of surface
+		//spawn bullet only when the linetrace hit some kind of surface
 	}
+
+	const FRotator SpawnRotation = GetControlRotation();
+	// MuzzleOffset is in camera space, so transform it to world space before offsetting from the character location to find the final muzzle position
+	const FVector SpawnLocation = ((FP_MuzzleLocation != nullptr) ? FP_MuzzleLocation->GetComponentLocation() : GetActorLocation()) + SpawnRotation.RotateVector(GunOffset);
+
+	//Set Spawn Collision Handling Override
+	FActorSpawnParameters ActorSpawnParams;
+	ActorSpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AdjustIfPossibleButDontSpawnIfColliding;
+
+	//DrawDebugString(GetWorld(), Hit.Actor->GetActorLocation(), FString::Printf(TEXT("Hit distance %f"), Hit.Distance), 0, FColor::Orange, 2.f, false, 3.f);	//remove comment
+
+
+	// spawn the projectile at the muzzle
+	GetWorld()->SpawnActor<AInfinite_ShooterProjectile>(ProjectileClass, SpawnLocation, SpawnRotation, ActorSpawnParams);
 
 	if (MuzzleParticles)
 	{
