@@ -7,6 +7,7 @@
 
 #include "Blueprint/UserWidget.h"
 
+#include "Components/StaticMeshComponent.h"
 #include "Components/WidgetComponent.h"
 #include "UObject/ConstructorHelpers.h"
 
@@ -19,7 +20,11 @@ ATarget_Base_CPP::ATarget_Base_CPP() :
 	PDynamicMaterial(nullptr)
 {
 	//PStaticMeshComponent->SetSimulatePhysics(true);		//set this static mesh component to be able to receive OnHit event from projectile component
-	PrimaryActorTick.bCanEverTick = true;
+	PrimaryActorTick.bCanEverTick = false;
+
+	PStaticMeshComponent = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("PStaticMeshComponent"));
+	PStaticMeshComponent->bCastShadowAsTwoSided = false;
+	RootComponent = PStaticMeshComponent;
 
 	PWidgetComponent = CreateDefaultSubobject<UWidgetComponent>(TEXT("PWidgetComponent"));
 	PWidgetComponent->SetWidgetSpace(EWidgetSpace::World);

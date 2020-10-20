@@ -1,13 +1,13 @@
-// Copyright Epic Games, Inc. All Rights Reserved.
 
 #pragma once
 
 #include "CoreMinimal.h"
-#include "GameFramework/Actor.h"
+#include "Base_Classes/Projectile_Base_CPP.h"
+
 #include "Infinite_ShooterProjectile.generated.h"
 
 UCLASS(config = Game)
-class AInfinite_ShooterProjectile : public AActor
+class AInfinite_ShooterProjectile : public AProjectile_Base_CPP
 {
 	GENERATED_BODY()
 
@@ -20,15 +20,7 @@ public:
 #pragma region Class_Components_Protected
 protected:
 
-	/** Sphere collision component */
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Projectile)
-		class USphereComponent* CollisionComp;
-
-	/** Projectile movement component */
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Movement, meta = (AllowProtectedAccess = "true"))
-		class UProjectileMovementComponent* ProjectileMovement;
-
-	/** Seconds to wait between shoots */
+	/** Projectile at bullet's impact */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
 		class UParticleSystem* ImpactParticles;
 
@@ -46,19 +38,12 @@ public:
 #pragma region Class_Getters_Public 
 public:
 
-	/** Returns CollisionComp subobject **/
+	/** Returns Projectile **/
 	UFUNCTION(BlueprintCallable, Category = "Class_Getters_Public")
-		FORCEINLINE class USphereComponent* GetCollisionComp() const
+		FORCEINLINE class UParticleSystem* Get_ImpactParticles() const
 	{
-		return CollisionComp;
+		return ImpactParticles;
 	}
 
-	/** Returns ProjectileMovement subobject **/
-	UFUNCTION(BlueprintCallable, Category = "Class_Getters_Public")
-		FORCEINLINE class UProjectileMovementComponent* GetProjectileMovement() const
-	{
-		return ProjectileMovement;
-	}
-	
 #pragma endregion 
 };

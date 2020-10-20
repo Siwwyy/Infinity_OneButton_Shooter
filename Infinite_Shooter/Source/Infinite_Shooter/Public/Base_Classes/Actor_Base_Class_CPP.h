@@ -20,9 +20,6 @@ protected:
 protected:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Class_Components_Protected", meta = (AllowProtectedAccess = "true"))
-		class UStaticMeshComponent* PStaticMeshComponent;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Class_Components_Protected", meta = (AllowProtectedAccess = "true"))
 		class UArrowComponent* PArrowComponent;
 
 #pragma endregion
@@ -34,12 +31,6 @@ public:
 #pragma endregion
 #pragma region Class_Getters_Public 
 public:
-
-	UFUNCTION(BlueprintCallable, Category = "Class_Getters_Public")
-		FORCEINLINE class UStaticMeshComponent* Get_PStaticMeshComponent() const
-	{
-		return PStaticMeshComponent;
-	}
 
 	UFUNCTION(BlueprintCallable, Category = "Class_Getters_Public")
 		FORCEINLINE class UArrowComponent* Get_PArrowComponent() const
