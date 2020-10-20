@@ -41,6 +41,7 @@ void AGame_Manager::Game_Loop()
 	{
 		DrawDebugString(GetWorld(), Draw_Location, FString::Printf(TEXT("GAME OVER!!!")), 0, FColor::Black, 0.2f, false, 3.f);
 		GetWorldTimerManager().ClearTimer(Timer_Game_MainLoop);
+		GetWorldTimerManager().ClearTimer(Timer_Game_SpawnLoop);
 		GetWorld()->GetFirstPlayerController()->ConsoleCommand("quit");
 	}
 }
