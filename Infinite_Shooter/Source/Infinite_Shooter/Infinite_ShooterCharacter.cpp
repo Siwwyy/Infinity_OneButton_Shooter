@@ -174,19 +174,6 @@ void AInfinite_ShooterCharacter::StopFire()
 
 void AInfinite_ShooterCharacter::FireShot()
 {
-	//FHitResult Hit;
-
-	//const float WeaponRange = 20000.f;
-	//const FVector StartTrace = FirstPersonCameraComponent->GetComponentLocation();
-	//const FVector EndTrace = (FirstPersonCameraComponent->GetForwardVector() * WeaponRange) + StartTrace;
-
-	//FCollisionQueryParams QueryParams = FCollisionQueryParams(SCENE_QUERY_STAT(WeaponTrace), false, this);
-
-	//if (GetWorld()->LineTraceSingleByChannel(Hit, StartTrace, EndTrace, ECC_Visibility, QueryParams))
-	//{
-	//	//spawn bullet only when the linetrace hit some kind of surface
-	//}
-
 	const FRotator SpawnRotation = GetControlRotation();
 	// MuzzleOffset is in camera space, so transform it to world space before offsetting from the character location to find the final muzzle position
 	const FVector SpawnLocation = ((FP_MuzzleLocation != nullptr) ? FP_MuzzleLocation->GetComponentLocation() : GetActorLocation()) + SpawnRotation.RotateVector(GunOffset);
@@ -194,9 +181,6 @@ void AInfinite_ShooterCharacter::FireShot()
 	//Set Spawn Collision Handling Override
 	FActorSpawnParameters ActorSpawnParams;
 	ActorSpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AdjustIfPossibleButDontSpawnIfColliding;
-
-	//DrawDebugString(GetWorld(), Hit.Actor->GetActorLocation(), FString::Printf(TEXT("Hit distance %f"), Hit.Distance), 0, FColor::Orange, 2.f, false, 3.f);	//remove comment
-
 
 	// spawn the projectile at the muzzle
 	GetWorld()->SpawnActor<AInfinite_ShooterProjectile>(ProjectileClass, SpawnLocation, SpawnRotation, ActorSpawnParams);
@@ -224,7 +208,6 @@ void AInfinite_ShooterCharacter::FireShot()
 			AnimInstance->Montage_Play(FireAnimation, 1.f);
 		}
 	}
-
 }
 
 void AInfinite_ShooterCharacter::OnResetVR()
