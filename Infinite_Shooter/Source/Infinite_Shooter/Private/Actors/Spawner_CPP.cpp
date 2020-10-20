@@ -60,7 +60,9 @@ void ASpawner_CPP::Spawn_Around(float Spawning_Radius, FVector& Spawn_Location, 
 	New_Location.Z = static_cast<float>(Get_RandomInt(200, 600));	//random Z position
 
 	Spawn_Location = New_Location;
+	Spawn_Rotatation.Roll = 0.f;
 	Spawn_Rotatation.Yaw = Rotation_Object_Angle + Rotation_Angle;
+	Spawn_Rotatation.Pitch = 0.f;
 
 	Rotation_Angle += Spawn_Angle;
 	if (Rotation_Angle >= 360.f)

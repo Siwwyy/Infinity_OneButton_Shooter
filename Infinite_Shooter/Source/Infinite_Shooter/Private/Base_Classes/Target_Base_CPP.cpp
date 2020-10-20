@@ -8,6 +8,7 @@
 #include "Blueprint/UserWidget.h"
 
 #include "Components/StaticMeshComponent.h"
+#include "Components/ArrowComponent.h"
 #include "Components/WidgetComponent.h"
 #include "UObject/ConstructorHelpers.h"
 
@@ -25,6 +26,7 @@ ATarget_Base_CPP::ATarget_Base_CPP() :
 	PStaticMeshComponent = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("PStaticMeshComponent"));
 	PStaticMeshComponent->bCastShadowAsTwoSided = false;
 	RootComponent = PStaticMeshComponent;
+	PArrowComponent->SetupAttachment(RootComponent);
 
 	PWidgetComponent = CreateDefaultSubobject<UWidgetComponent>(TEXT("PWidgetComponent"));
 	PWidgetComponent->SetWidgetSpace(EWidgetSpace::World);

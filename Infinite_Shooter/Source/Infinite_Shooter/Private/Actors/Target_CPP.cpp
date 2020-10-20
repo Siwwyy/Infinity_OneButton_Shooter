@@ -4,6 +4,7 @@
 
 #include "Infinite_Shooter/Infinite_ShooterCharacter.h"
 #include "Widgets/HealthBar_CPP.h"
+
 #include "Components/WidgetComponent.h"
 
 
@@ -12,6 +13,7 @@ ATarget_CPP::ATarget_CPP() :
 	Velocity(100.f)
 {
 	PrimaryActorTick.bCanEverTick = true;
+
 }
 
 
