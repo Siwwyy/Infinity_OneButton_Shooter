@@ -174,18 +174,18 @@ void AInfinite_ShooterCharacter::StopFire()
 
 void AInfinite_ShooterCharacter::FireShot()
 {
-	FHitResult Hit;
+	//FHitResult Hit;
 
-	const float WeaponRange = 20000.f;
-	const FVector StartTrace = FirstPersonCameraComponent->GetComponentLocation();
-	const FVector EndTrace = (FirstPersonCameraComponent->GetForwardVector() * WeaponRange) + StartTrace;
+	//const float WeaponRange = 20000.f;
+	//const FVector StartTrace = FirstPersonCameraComponent->GetComponentLocation();
+	//const FVector EndTrace = (FirstPersonCameraComponent->GetForwardVector() * WeaponRange) + StartTrace;
 
-	FCollisionQueryParams QueryParams = FCollisionQueryParams(SCENE_QUERY_STAT(WeaponTrace), false, this);
+	//FCollisionQueryParams QueryParams = FCollisionQueryParams(SCENE_QUERY_STAT(WeaponTrace), false, this);
 
-	if (GetWorld()->LineTraceSingleByChannel(Hit, StartTrace, EndTrace, ECC_Visibility, QueryParams))
-	{
-		//spawn bullet only when the linetrace hit some kind of surface
-	}
+	//if (GetWorld()->LineTraceSingleByChannel(Hit, StartTrace, EndTrace, ECC_Visibility, QueryParams))
+	//{
+	//	//spawn bullet only when the linetrace hit some kind of surface
+	//}
 
 	const FRotator SpawnRotation = GetControlRotation();
 	// MuzzleOffset is in camera space, so transform it to world space before offsetting from the character location to find the final muzzle position
