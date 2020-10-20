@@ -58,6 +58,7 @@ void AGame_Manager::Delete_DestroyedTarget()
 		if (Target->Get_IsDestroyed())
 		{
 			Increase_Game_Points(1);	//increase points by 1
+			Player->Set_PlayerPoints(Game_Points);	//set player points
 			Target->Get_PWidgetComponent()->DestroyComponent();
 			Target->Destroy();	//remove target from World
 			Array_Target.Remove(Target);	//remove Target from array
@@ -69,21 +70,22 @@ void AGame_Manager::Delete_DestroyedTarget()
 void AGame_Manager::Increase_Game_Points(int32 Increase_Value)
 {
 	Game_Points += Increase_Value;
-	Player->Set_PlayerPoints(Game_Points);
 }
 
 void AGame_Manager::Change_Game_Difficultness()
 {
-	if (Game_Points % 50 == 0 && Game_Points != 0)	//increase speed of Targets every 25 points
+	if (Game_Points % 25 == 0 && Game_Points != 0)	//increase speed of Targets every 25 points
 	{
 		for (ATarget_Base_CPP* const Target : Array_Target)
 		{
-			if(Target->Get_IsDestroyed() == false)
+			if (Target->Get_IsDestroyed() == false)
 			{
-				if(ATarget_CPP * Target_CPP = Cast<ATarget_CPP>(Target))
-				{
-					Target_CPP->Set_Velocity(Target_CPP->Get_Velocity() + static_cast<float>(Difficultness));	//increase target velocity (increases difficultness of game too)
-				}
+				continue;
+			}
+
+			if (ATarget_CPP* Target_CPP = Cast<ATarget_CPP>(Target))
+			{
+				Target_CPP->Set_Velocity(Target_CPP->Get_Velocity() + static_cast<float>(Difficultness));	//increase target velocity (increases difficultness of game too)
 			}
 		}
 	}
@@ -94,7 +96,7 @@ bool AGame_Manager::Is_End()
 	for (ATarget_Base_CPP* const Target : Array_Target)
 	{
 		const FVector Target_Location = Target->GetActorLocation();
-		if (Target->GetDistanceTo(Player) <= (Target_Location.Z / 1.5f))
+		if (Target->GetDistanceTo(Player) <= (Target_Location.Z / 1.5f))	//if Target's distance to player is closer than (we are averaging the target location) value then game is over  
 		{
 			return true;
 		}
