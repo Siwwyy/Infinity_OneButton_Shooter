@@ -12,8 +12,8 @@ AActor_Base_Class_CPP::AActor_Base_Class_CPP() :
 
 
 	PArrowComponent = CreateDefaultSubobject<UArrowComponent>(TEXT("PArrowComponent"));
-	PArrowComponent->SetVisibility(true);
-	PArrowComponent->SetHiddenInGame(false);
+	//PArrowComponent->SetVisibility(true);
+	//PArrowComponent->SetHiddenInGame(false);
 	PArrowComponent->ArrowSize = 5.f;
 	//PArrowComponent->SetupAttachment(RootComponent);
 }

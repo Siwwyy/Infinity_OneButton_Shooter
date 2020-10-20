@@ -26,7 +26,7 @@ ATarget_Base_CPP::ATarget_Base_CPP() :
 	PStaticMeshComponent = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("PStaticMeshComponent"));
 	PStaticMeshComponent->bCastShadowAsTwoSided = false;
 	RootComponent = PStaticMeshComponent;
-	PArrowComponent->SetupAttachment(RootComponent);
+	//PArrowComponent->SetupAttachment(RootComponent);	//uncoment if u would like to make PArrowComponent visible during gameplay
 
 	PWidgetComponent = CreateDefaultSubobject<UWidgetComponent>(TEXT("PWidgetComponent"));
 	PWidgetComponent->SetWidgetSpace(EWidgetSpace::World);
