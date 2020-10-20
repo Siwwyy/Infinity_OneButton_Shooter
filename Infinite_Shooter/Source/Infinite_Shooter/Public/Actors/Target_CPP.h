@@ -22,8 +22,8 @@ public:
 #pragma region Class_Variables_Protected
 protected:
 
-	UPROPERTY(EditAnywhere,BlueprintReadWrite, Category= Class_Variables_Protected, meta = (AllowProtectedAccess = "true"))
-	float Velocity;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Class_Variables_Protected, meta = (AllowProtectedAccess = "true"))
+		float Velocity;
 
 #pragma endregion
 #pragma region Class_Components_Protected
@@ -44,6 +44,22 @@ public:
 protected:
 
 	virtual void Tick(float DeltaSeconds) override;
+
+#pragma endregion
+#pragma region Class_Setters_Public
+public:
+
+	void Set_Velocity(float Value);
+
+#pragma endregion
+#pragma region Class_Getters_Public
+public:
+
+	UFUNCTION(BlueprintCallable, Category = "Class_Getters_Public")
+		FORCEINLINE float Get_Velocity() const
+	{
+		return Velocity;
+	}
 
 #pragma endregion
 };

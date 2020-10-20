@@ -7,6 +7,22 @@
 
 #include "Game_Manager.generated.h"
 
+
+
+#pragma region Enums
+
+UENUM(BlueprintType, Category = "Enums")
+enum class Game_Difficultness : uint8
+{
+	None = 0 UMETA(DisplayName = "None"),
+	Easy = 10 UMETA(DisplayName = "Easy"),
+	Medium = 25 UMETA(DisplayName = "Medium"),
+	Hard = 50 UMETA(DisplayName = "Hard")
+};
+
+#pragma endregion
+
+
 UCLASS()
 class INFINITE_SHOOTER_API AGame_Manager : public AActor_Base_Class_CPP
 {
@@ -24,6 +40,10 @@ protected:
 
 	FTimerHandle Timer_Game_MainLoop;
 	FTimerHandle Timer_Game_SpawnLoop;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Class_Variables_Protected, meta = (AllowProtectedAccess = "true"))
+
+	Game_Difficultness Difficultness;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Class_Variables_Protected, meta = (AllowProtectedAccess = "true"))
 		int32 Game_Points;
@@ -54,6 +74,8 @@ private:
 	void Delete_DestroyedTarget();
 
 	void Increase_Game_Points(int32 Increase_Value);
+
+	void Change_Game_Difficultness();
 
 	bool Is_End();
 

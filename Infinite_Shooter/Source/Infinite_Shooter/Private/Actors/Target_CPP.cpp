@@ -46,3 +46,8 @@ void ATarget_CPP::Tick(float DeltaSeconds)
 		User_Widget->Set_Bar_Value_Percent(Get_fHealth() / 100.f);	//100 is a max health
 	}
 }
+
+void ATarget_CPP::Set_Velocity(float Value)
+{
+	Velocity = Value;
+}

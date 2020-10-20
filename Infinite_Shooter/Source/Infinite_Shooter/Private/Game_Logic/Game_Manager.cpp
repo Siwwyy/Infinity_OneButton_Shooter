@@ -11,6 +11,7 @@
 AGame_Manager::AGame_Manager() :
 	Timer_Game_MainLoop({}),
 	Timer_Game_SpawnLoop({}),
+	Difficultness(Game_Difficultness::Easy),
 	Player(nullptr),
 	Spawner(nullptr),
 	Array_Target({})
@@ -33,6 +34,7 @@ void AGame_Manager::Game_Loop()
 	Draw_Location.Z = 200.f;
 
 	Delete_DestroyedTarget();
+	Change_Game_Difficultness();
 	if (Is_End())
 	{
 		DrawDebugString(GetWorld(), Draw_Location, FString::Printf(TEXT("GAME OVER!!!")), 0, FColor::Black, 0.2f, false, 3.f);
@@ -64,6 +66,23 @@ void AGame_Manager::Increase_Game_Points(int32 Increase_Value)
 {
 	Game_Points += Increase_Value;
 	Player->Set_PlayerPoints(Game_Points);
+}
+
+void AGame_Manager::Change_Game_Difficultness()
+{
+	if (Game_Points % 50 == 0 && Game_Points != 0)	//increase speed of Targets every 25 points
+	{
+		for (ATarget_Base_CPP* const Target : Array_Target)
+		{
+			if(Target->Get_IsDestroyed() == false)
+			{
+				if(ATarget_CPP * Target_CPP = Cast<ATarget_CPP>(Target))
+				{
+					Target_CPP->Set_Velocity(Target_CPP->Get_Velocity() + static_cast<float>(Difficultness));	//increase target velocity (increase difficultness of game too)
+				}
+			}
+		}
+	}
 }
 
 bool AGame_Manager::Is_End()
