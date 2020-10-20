@@ -1,11 +1,13 @@
 
 #include "Game_Logic/Game_Manager.h"
 #include "Actors/Target_CPP.h"
+#include "Base_Classes/Target_Base_CPP.h"
 #include "Actors/Spawner_CPP.h"
 #include "Infinite_Shooter/Infinite_ShooterCharacter.h"
 
 
 #include "DrawDebugHelpers.h"
+#include "Components/WidgetComponent.h"
 
 
 AGame_Manager::AGame_Manager() :
@@ -54,7 +56,8 @@ void AGame_Manager::Delete_DestroyedTarget()
 	{
 		if (Target->Get_IsDestroyed())
 		{
-			Increase_Game_Points(1);
+			Increase_Game_Points(1);	//increase points by 1
+			Target->Get_PWidgetComponent()->DestroyComponent();
 			Target->Destroy();	//remove target from World
 			Array_Target.Remove(Target);	//remove Target from array
 			break;
@@ -78,7 +81,7 @@ void AGame_Manager::Change_Game_Difficultness()
 			{
 				if(ATarget_CPP * Target_CPP = Cast<ATarget_CPP>(Target))
 				{
-					Target_CPP->Set_Velocity(Target_CPP->Get_Velocity() + static_cast<float>(Difficultness));	//increase target velocity (increase difficultness of game too)
+					Target_CPP->Set_Velocity(Target_CPP->Get_Velocity() + static_cast<float>(Difficultness));	//increase target velocity (increases difficultness of game too)
 				}
 			}
 		}
