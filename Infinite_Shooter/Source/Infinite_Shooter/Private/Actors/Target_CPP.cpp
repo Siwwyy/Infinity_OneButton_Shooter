@@ -6,6 +6,7 @@
 #include "Widgets/HealthBar_CPP.h"
 
 #include "Components/WidgetComponent.h"
+#include "Particles/ParticleSystemComponent.h"
 
 
 ATarget_CPP::ATarget_CPP() :
@@ -14,6 +15,8 @@ ATarget_CPP::ATarget_CPP() :
 {
 	PrimaryActorTick.bCanEverTick = true;
 
+	PPatricle_System = CreateDefaultSubobject<UParticleSystemComponent>(TEXT("PPatricle_System"));
+	PPatricle_System->SetupAttachment(RootComponent);
 }
 
 
@@ -36,8 +39,8 @@ void ATarget_CPP::Tick(float DeltaSeconds)
 	Super::Tick(DeltaSeconds);
 	MoveForward(DeltaSeconds);	//move forward this
 
-	float blend = 0.5f + static_cast<float>(FMath::Cos(GetWorld()->TimeSeconds) / 2);
-	PDynamicMaterial->SetScalarParameterValue(TEXT("Blend"), blend);
+	/*float blend = 0.5f + static_cast<float>(FMath::Cos(GetWorld()->TimeSeconds) / 2);
+	PDynamicMaterial->SetScalarParameterValue(TEXT("Blend"), blend);*/
 
 	const auto User_Widget = Cast<UHealthBar_CPP>(Get_PWidgetComponent()->GetUserWidgetObject());
 

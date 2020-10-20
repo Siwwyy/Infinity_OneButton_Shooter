@@ -29,7 +29,8 @@ protected:
 #pragma region Class_Components_Protected
 protected:
 
-
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Class_Variables_Protected, meta = (AllowProtectedAccess = "true"))
+		class UParticleSystemComponent* PPatricle_System;
 
 #pragma endregion
 #pragma region Class_Functions_Public
@@ -59,6 +60,12 @@ public:
 		FORCEINLINE float Get_Velocity() const
 	{
 		return Velocity;
+	}
+
+	UFUNCTION(BlueprintCallable, Category = "Class_Getters_Public")
+		FORCEINLINE class UParticleSystemComponent* Get_Patricle_System() const
+	{
+		return PPatricle_System;
 	}
 
 #pragma endregion
