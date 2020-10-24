@@ -16,6 +16,9 @@
 #include "Components/WidgetComponent.h"
 #include "Sound/SoundAttenuation.h"
 #include "Widgets/PlayerPoints_CPP.h"
+#include "TimerManager.h"
+#include "Runtime/UMG/Public/Components/TextBlock.h"
+#include "UObject/ConstructorHelpers.h"
 
 DEFINE_LOG_CATEGORY_STATIC(LogFPChar, Warning, All);
 

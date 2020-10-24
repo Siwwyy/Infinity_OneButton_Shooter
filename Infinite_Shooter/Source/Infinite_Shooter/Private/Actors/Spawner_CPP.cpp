@@ -2,6 +2,8 @@
 #include "Actors/Spawner_CPP.h"
 
 #include "Actors/Target_CPP.h"
+#include "Engine/World.h"
+#include "GameFramework/PlayerController.h"
 
 
 ASpawner_CPP::ASpawner_CPP() :

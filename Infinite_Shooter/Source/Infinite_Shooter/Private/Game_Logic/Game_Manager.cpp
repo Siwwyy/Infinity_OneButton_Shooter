@@ -8,6 +8,8 @@
 
 #include "DrawDebugHelpers.h"
 #include "Components/WidgetComponent.h"
+#include "Engine/World.h"
+#include "TimerManager.h"
 
 
 AGame_Manager::AGame_Manager() :
