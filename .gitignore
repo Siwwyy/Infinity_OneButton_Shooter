@@ -447,14 +447,14 @@ Intermediate/*
 Plugins/*/Intermediate/*
 
 # Cache files for the editor to use
-DerivedDataCache/*
+*/DerivedDataCache/*
 
 
 Infinite_Shooter/Binaries
 Infinite_Shooter/Content/StarterContent/
 Infinite_Shooter/Intermediate
 Infinite_Shooter/Saved
-Infinite_Shooter/DerivedDataCache
+Infinite_Shooter/DerivedDataCache/*
 
 Infinite_Shooter_APK/Binaries
 Infinite_Shooter_APK/Content/StarterContent/
