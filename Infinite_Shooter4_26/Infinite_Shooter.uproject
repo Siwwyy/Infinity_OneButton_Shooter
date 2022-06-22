@@ -1,0 +1,27 @@
+{
+	"FileVersion": 3,
+	"EngineAssociation": "{186401AD-4DCB-521F-982A-16B82F1D1F01}",
+	"Category": "",
+	"Description": "",
+	"Modules": [
+		{
+			"Name": "Infinite_Shooter",
+			"Type": "Runtime",
+			"LoadingPhase": "Default",
+			"AdditionalDependencies": [
+				"Engine",
+				"UMG"
+			]
+		}
+	],
+	"Plugins": [
+		{
+			"Name": "GoogleVRHMD",
+			"Enabled": false
+		},
+		{
+			"Name": "OculusAvatar",
+			"Enabled": false
+		}
+	]
+}
