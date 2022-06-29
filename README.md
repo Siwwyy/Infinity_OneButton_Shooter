@@ -1,9 +1,15 @@
 # Infinity_OneButton_Shooter
 
 <div align="center">
-<h1>
-<img src="gameplay_view.png">
-</h1>
+	<h1>
+		<img src="gameplay_view.png">
+	</h1>
+	<h2>
+		<img src="menu_view.png">
+	</h1>
+	<h3>
+		<img src="menu_post_processing_view.png">
+	</h1>
 </div>
 <br>
 
